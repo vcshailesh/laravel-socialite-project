@@ -25,4 +25,5 @@ Route::group([
 });
 
 Route::post('login','API\SocialAuthController@login');
+Route::post('logout','API\SocialAuthController@logout');
 Route::get('me','API\SocialAuthController@me');

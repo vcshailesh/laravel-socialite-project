@@ -19,7 +19,7 @@ class SocialAuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login','redirectToProvider','handleProviderCallback']]);
     }
 
     /**
@@ -48,6 +48,8 @@ class SocialAuthController extends Controller
         // but you could set other things like avatar or gender
         if (!$user->exists) {
             $user->name = $providerUser->getName();
+            $user->provider = $provider;
+            $user->provider_id = $providerUser->getId();
             $user->save();
         }
 
@@ -59,7 +61,8 @@ class SocialAuthController extends Controller
         $token = JWTAuth::fromUser($user);
 
         return new JsonResponse([
-            'token' => $token
+            'token' => $token,
+            'user' => $user
         ]);
     }
 
@@ -119,5 +122,17 @@ class SocialAuthController extends Controller
 
     public function me(){
         return response()->json($this->guard()->user());
+    }
+
+    /**
+     * Log the user out (Invalidate the token)
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function logout()
+    {
+        $this->guard()->logout();
+
+        return response()->json(['message' => 'Successfully logged out']);
     }
 }
