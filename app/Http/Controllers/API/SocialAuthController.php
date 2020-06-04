@@ -121,7 +121,11 @@ class SocialAuthController extends Controller
     }
 
     public function me(){
-        return response()->json($this->guard()->user());
+        if(!$this->guard()->user()){
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }else{
+            return response()->json($this->guard()->user());
+        }
     }
 
     /**

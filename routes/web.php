@@ -11,9 +11,6 @@
 |
 */
 
-use App\CalendarEvent;
-use MaddHatter\LaravelFullcalendar\Facades\Calendar;
-
 Route::get('/', function () {
     return view('welcome');
 });
