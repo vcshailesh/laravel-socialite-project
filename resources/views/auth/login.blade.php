@@ -79,6 +79,9 @@
                                 <a href="{{route('social.auth','twitter')}}" class="btn btn-primary">
                                     {{ __('Twitter') }}
                                 </a>
+                                <a href="{{route('social.auth','instagram')}}" class="btn btn-primary">
+                                    {{ __('Instagram') }}
+                                </a>
                             </div>
                     </form>
                 </div>
